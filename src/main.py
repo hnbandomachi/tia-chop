@@ -18,43 +18,43 @@ def forControl(A, B, row):
 
     if A[4] != B[4]:
         print("Ma don hang " + str(A[2]) + " bi KHAC SL dat don")
-        ws['E'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['E'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[6] != B[6]:
         print("Ma don hang " + str(A[2]) + " bi KHAC SL NCC cancel")
-        ws['G'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['G'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[7] != B[7]:
         print("Ma don hang " + str(A[2]) + " bi KHAC SL fail QC")
-        ws['H'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['H'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[10] != B[10]:
         print("Ma don hang " + str(A[2]) + " bi KHAC Don gia nhap kho")
-        ws['K'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['K'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[11] != B[11]:
         print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien nhap kho")
-        ws['L'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['L'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[12] != B[12]:
         print("Ma don hang " + str(A[2]) + " bi KHAC VAT")
-        ws['M'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['M'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[13] != B[13]:
         print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien thanh toan")
-        ws['N'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['N'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[14] != B[14]:
-        print("Ma don hang " + str(A[2]) + "Thanh tien can tru")
-        ws['O'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['C'+str(row+5)].fill = PatternFill("solid", fgColor="00FF0000")
+        print("Ma don hang " + str(A[2]) + " bi khac thanh tien can tru")
+        ws['O'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
 
 
@@ -66,7 +66,7 @@ def main():
     LF_data = pd.read_excel(os.getcwd() + '\LF.xlsx', header=5).values
 
     wb = load_workbook(os.getcwd() + '\ket_qua.xlsx')
-    ws = wb['T4.22']
+    ws = wb[wb.sheetnames[0]]
 
     num_TC_item = numOfItems(TC_data)    
     num_LF_item = numOfItems(LF_data)    
@@ -75,11 +75,13 @@ def main():
     TC_data = TC_data[0:num_TC_item]
     LF_data = LF_data[0:num_LF_item]
 
-    # Get SKU and compare
+    # Get SKU and PO to compare
     for i in range(num_TC_item-1):
         for j in range(num_LF_item-1):
-            if TC_data[i][2] == LF_data[j][2]:      # Consider updating new approximate comparation
-                forControl(TC_data[i][:], LF_data[i][:], i)
+            if TC_data[i][2] == LF_data[j][2] and TC_data[i][1] == LF_data[j][1]:      # Consider updating new approximate comparation
+                a = TC_data[i][2]
+                b = LF_data[j][2]
+                forControl(TC_data[i][:], LF_data[j][:], i)
     
     wb.save(os.getcwd() + '\ket_qua.xlsx')
     print("Hello users of Ngoc-Bui, this program is for you... enjoy it :)))")
