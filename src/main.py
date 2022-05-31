@@ -86,15 +86,12 @@ def main():
 
     # Get SKU and PO to compare
     is_TC_reserve = True
-    is_LF_reserve = True
-    TC_reserves = []
-    LF_reserves = []
+    LF_not_reserves = []
     cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']   
     for i in range(num_TC_item):
         for j in range(num_LF_item):
             if TC_data[i][2] == LF_data[j][2] and TC_data[i][1] == LF_data[j][1]:      # Consider updating new approximate comparation
-                a = TC_data[i][2]
-                b = LF_data[j][2]
+                LF_not_reserves.append(j)
                 forControl(TC_data[i][:], LF_data[j][:], i)
                 is_TC_reserve = False
                 break
@@ -105,12 +102,26 @@ def main():
             for k in range(len(cols)):
                 ws[cols[k] + str(i+7)]        = TC_data[i][k]
                 ws[cols[k] + str(i+7)].fill   = PatternFill("solid", fgColor="09EA69")
-
-    # for TC_reserve in TC_reserves:
-    #     for i in range(len(cols)):
-    #         ws[cols[i] + str(num_TC_item+7)]        = TC_reserve[i]
-    #         ws[cols[i] + str(num_TC_item+7)].fill   = PatternFill("solid", fgColor="09EA69")
-
+    LF_reserves = []
+    for j in range(num_LF_item):
+        is_LF_reserve = True
+        for LF_not_reserve in LF_not_reserves:
+            if j == LF_not_reserve:
+                is_LF_reserve = False
+                break
+            else:
+                is_LF_reserve = True
+        if is_LF_reserve:
+            LF_reserves.append(LF_data[j])
+    
+    ws.insert_rows(num_TC_item+7, len(LF_reserves))   
+    
+    cnt_insert = 0
+    for LF_reserve in LF_reserves:
+        for i in range(len(cols)):
+            ws[cols[i] + str(num_TC_item+7+cnt_insert)]        = LF_reserve[i]
+            ws[cols[i] + str(num_TC_item+7+cnt_insert)].fill   = PatternFill("solid", fgColor="dfff3d")
+        cnt_insert = cnt_insert + 1
 
     wb.save(os.getcwd() + '\ket_qua.xlsx')
     print("Hello users of Ngoc-Bui, this program is for you... enjoy it :)))")
