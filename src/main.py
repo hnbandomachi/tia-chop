@@ -35,34 +35,34 @@ def forControl(A, B, row):
         ws['H'+str(row+7)].comment  = Comment("LF: " + str(B[7]) + " \nTC: " + str(A[7]), 'Huy Le')
         ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
-    if A[10] != B[10]:
-        print("Ma don hang " + str(A[2]) + " bi KHAC Don gia nhap kho")
-        ws['K'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
-        ws['K'+str(row+7)].comment  = Comment("LF: " + str(B[10]) + " \nTC: " + str(A[10]), 'Huy Le')
-        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
-
     if A[11] != B[11]:
-        print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien nhap kho")
+        print("Ma don hang " + str(A[2]) + " bi KHAC Don gia nhap kho")
         ws['L'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
         ws['L'+str(row+7)].comment  = Comment("LF: " + str(B[11]) + " \nTC: " + str(A[11]), 'Huy Le')
         ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[12] != B[12]:
-        print("Ma don hang " + str(A[2]) + " bi KHAC VAT")
+        print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien nhap kho")
         ws['M'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
         ws['M'+str(row+7)].comment  = Comment("LF: " + str(B[12]) + " \nTC: " + str(A[12]), 'Huy Le')
         ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[13] != B[13]:
-        print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien thanh toan")
+        print("Ma don hang " + str(A[2]) + " bi KHAC VAT")
         ws['N'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
         ws['N'+str(row+7)].comment  = Comment("LF: " + str(B[13]) + " \nTC: " + str(A[13]), 'Huy Le')
         ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
     if A[14] != B[14]:
-        print("Ma don hang " + str(A[2]) + " bi khac thanh tien can tru")
+        print("Ma don hang " + str(A[2]) + " bi KHAC Thanh tien thanh toan")
         ws['O'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
         ws['O'+str(row+7)].comment  = Comment("LF: " + str(B[14]) + " \nTC: " + str(A[14]), 'Huy Le')
+        ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+
+    if A[15] != B[15]:
+        print("Ma don hang " + str(A[2]) + " bi khac thanh tien can tru")
+        ws['P'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
+        ws['P'+str(row+7)].comment  = Comment("LF: " + str(B[15]) + " \nTC: " + str(A[15]), 'Huy Le')
         ws['C'+str(row+7)].fill = PatternFill("solid", fgColor="00FF0000")
 
 
@@ -87,7 +87,7 @@ def main():
     # Get SKU and PO to compare
     is_TC_reserve = True
     LF_not_reserves = []
-    cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']   
+    cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O','P']   
     for i in range(num_TC_item):
         for j in range(num_LF_item):
             if TC_data[i][2] == LF_data[j][2] and TC_data[i][1] == LF_data[j][1]:      # Consider updating new approximate comparation
