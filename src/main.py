@@ -7,7 +7,7 @@ from openpyxl.comments import Comment
 
 def numOfItems(data):
     for i in range(1, len(data)):
-        if data[i][0] == "TỔNG CỘNG":
+        if data[i][0].find("TỔNG CỘNG") >= 0:
             return i     
 
 def forControl(A, B, row):
